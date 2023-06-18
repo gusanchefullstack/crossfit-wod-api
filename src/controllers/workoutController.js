@@ -1,8 +1,14 @@
-const workoutService = require("../services/workoutService");
+import {
+  getAllWorkouts as _getAllWorkouts,
+  getOneWorkout as _getOneWorkout,
+  createNewWorkout as _createNewWorkout,
+  updateOneWorkout as _updateOneWorkout,
+  deleteOneWorkout as _deleteOneWorkout,
+} from "../services/workoutService";
 
 const getAllWorkouts = (req, res) => {
   try {
-    const allWorkouts = workoutService.getAllWorkouts();
+    const allWorkouts = _getAllWorkouts();
     res.send({ status: "OK", data: allWorkouts });
   } catch (error) {
     res
@@ -22,7 +28,7 @@ const getOneWorkout = (req, res) => {
     });
   }
   try {
-    const workout = workoutService.getOneWorkout(workoutId);
+    const workout = _getOneWorkout(workoutId);
     res.send({ status: "OK", data: workout });
   } catch (error) {
     res
@@ -58,7 +64,7 @@ const createNewWorkout = (req, res) => {
     trainerTips: body.trainerTips,
   };
   try {
-    const createdWorkout = workoutService.createNewWorkout(newWorkout);
+    const createdWorkout = _createNewWorkout(newWorkout);
     res.status(201).send({ status: "OK", data: createdWorkout });
   } catch (error) {
     res
@@ -78,7 +84,7 @@ const updateOneWorkout = (req, res) => {
     });
   }
   try {
-    const updatedWorkout = workoutService.updateOneWorkout(workoutId, body);
+    const updatedWorkout = _updateOneWorkout(workoutId, body);
     res.send({ status: "OK", data: updatedWorkout });
   } catch (error) {
     res
@@ -98,16 +104,16 @@ const deleteOneWorkout = (req, res) => {
     });
   }
   try {
-      workoutService.deleteOneWorkout(workoutId);
-      res.status(204).send({ status: "OK" });
+    _deleteOneWorkout(workoutId);
+    res.status(204).send({ status: "OK" });
   } catch (error) {
-      res
-        .status(error?.status || 500)
-        .send({ status: "FAILED", data: { error: error?.message || error }})
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
   }
 };
 
-module.exports = {
+export default {
   getAllWorkouts,
   getOneWorkout,
   createNewWorkout,

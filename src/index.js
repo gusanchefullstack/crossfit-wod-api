@@ -1,13 +1,13 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from "express";
+import { json } from "body-parser";
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const v1WorkoutRouter = require("./v1/routes/workoutRoutes");
+import v1WorkoutRouter from "./v1/routes/workoutRoutes";
 
-app.use(bodyParser.json());
+app.use(json());
 app.use("/api/v1/workouts", v1WorkoutRouter);
 
 app.listen(PORT, () => {

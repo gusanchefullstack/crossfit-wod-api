@@ -1,9 +1,15 @@
-const Workout = require("../database/Workout");
-const { v4: uuid } = require("uuid");
+import {
+  getAllWorkouts as _getAllWorkouts,
+  getOneWorkout as _getOneWorkout,
+  createNewWorkout as _createNewWorkout,
+  updateOneWorkout as _updateOneWorkout,
+  deleteOneWorkout as _deleteOneWorkout,
+} from "../database/Workout";
+import { v4 as uuid } from "uuid";
 
 const getAllWorkouts = () => {
   try {
-    const allWorkouts = Workout.getAllWorkouts();
+    const allWorkouts = _getAllWorkouts();
     return allWorkouts;
   } catch (error) {
     throw error;
@@ -12,7 +18,7 @@ const getAllWorkouts = () => {
 
 const getOneWorkout = (workoutId) => {
   try {
-    const workout = Workout.getOneWorkout(workoutId);
+    const workout = _getOneWorkout(workoutId);
     return workout;
   } catch (error) {
     throw error;
@@ -27,7 +33,7 @@ const createNewWorkout = (newWorkout) => {
     updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
   };
   try {
-    const createdWorkout = Workout.createNewWorkout(workoutToInsert);
+    const createdWorkout = _createNewWorkout(workoutToInsert);
     return createdWorkout;
   } catch (error) {
     throw error;
@@ -36,7 +42,7 @@ const createNewWorkout = (newWorkout) => {
 
 const updateOneWorkout = (workoutId, changes) => {
   try {
-    const updatedWorkout = Workout.updateOneWorkout(workoutId, changes);
+    const updatedWorkout = _updateOneWorkout(workoutId, changes);
     return updatedWorkout;
   } catch (error) {
     throw error;
@@ -45,13 +51,13 @@ const updateOneWorkout = (workoutId, changes) => {
 
 const deleteOneWorkout = (workoutId) => {
   try {
-    Workout.deleteOneWorkout(workoutId);
+    _deleteOneWorkout(workoutId);
   } catch (error) {
     throw error;
   }
 };
 
-module.exports = {
+export default {
   getAllWorkouts,
   getOneWorkout,
   createNewWorkout,

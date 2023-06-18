@@ -1,9 +1,9 @@
-const fs = require("fs");
+import { writeFileSync } from "fs";
 
 const saveToDatabase = (DB) => {
-  fs.writeFileSync("./src/database/db.json", JSON.stringify(DB, null, 2), {
+  writeFileSync("./src/database/db.json", JSON.stringify(DB, null, 2), {
     encoding: "utf8",
   });
 };
 
-module.exports = { saveToDatabase };
+export default { saveToDatabase };
